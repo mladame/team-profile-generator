@@ -30,19 +30,13 @@ const generateHTML = require("./src/generateHTML");
 // make array for team members info
 
 // ! VALIDATE INPUT
-// prompted to enter team managers info
-// name, employee ID, email address, and office number
 // email opens up defaul email app
 //* Setup function to add manager constructor FIRST
 //      questions will be input
 //?      .then send data to manager.js and build file or push to array first?
-// {
-//     type: "input",
-//     name: "managerName",
-//     message: "What is your managers name?"
-// },
 
-const projectManager = [
+const projectManager = () => {
+    return inquirer.prompt([
     {
         type: "input",
         name: "name",
@@ -63,7 +57,11 @@ const projectManager = [
         name: "office",
         message: "What is your managers office number?"
     }
-]
+])
+.then(data => {
+    // data push to array, map/filter data first?
+})};
+
 
 
 // then prompted to add employee
@@ -87,7 +85,8 @@ const projectManager = [
 // name, ID, email, and school
 // email opens up defaul email app
 // *make into function, use .then
-const addEmployee = {[
+const addEmployee = () => {
+    return inquirer.prompt([
     {
         type: "list",
         name: "employeeType",
@@ -97,18 +96,18 @@ const addEmployee = {[
     {
         type: "input",
         name: "name",
-        message: "What type of employee would you like to add?"
+        message: "What is the name of this employee?"
     },
     {
         type: "input",
         name: "id",
-        message: "What type of employee would you like to add?"
+        message: "What is this employee's ID number?"
     },
     {
         type: "input",
         name: "email",
-        message: "What type of employee would you like to add?"
-    }]
+        message: "What is this employee's email?"
+    }])
 
     // if (choices === "engineer") {
     //     // run engineer questions
@@ -118,7 +117,9 @@ const addEmployee = {[
     // } else {
     //     // dont add employee, stop questions, next questions
     // }
-
-}
+.than(data => {
+    // push employee data to array
+})
+};
 
 // * SETUP function to generate html
