@@ -16,10 +16,10 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-const manager = require("./src/Manager");
-const employee = require("./src/Employee");
-const engineer = require("./src/Engineer");
-const intern = require("./src/Intern");
+const manager = require("./lib/Manager");
+const employee = require("./lib/Employee");
+const engineer = require("./lib/Engineer");
+const intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
@@ -33,6 +33,9 @@ const generateHTML = require("./src/generateHTML");
 
 // then prompted to add employee
 //  list of employee types: intern, engineer
+// loop this prompt in a while loop "while this is happening start from the beginning"
+// use push, map, filter, join, all info comes back as an object, we put that into an array
+// filter.map push to intern, filter.map push to... then join them all together
 
 // engineer:
 // name, ID, email, and GitHub username
