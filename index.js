@@ -60,7 +60,7 @@ const projectManager = [
     },
     {
         type: "input",
-        name: "officeNumber",
+        name: "office",
         message: "What is your managers office number?"
     }
 ]
