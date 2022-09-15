@@ -27,15 +27,32 @@ const inquirer = require("inquirer");
 // define to generate html
 const generateHTML = require("./src/generateHTML");
 
+// make array for team members info
+
 // prompted to enter team managers info
 // name, employee ID, email address, and office number
 // email opens up defaul email app
+//* Setup function to add manager constructor FIRST
+//      questions will be input
+//?      .then send data to manager.js and build file or push to array first?
+// {
+//     type: "input",
+//     name: "managerName",
+//     message: "What is your managers name?"
+// },
+
 
 // then prompted to add employee
 //  list of employee types: intern, engineer
 // loop this prompt in a while loop "while this is happening start from the beginning"
 // use push, map, filter, join, all info comes back as an object, we put that into an array
 // filter.map push to intern, filter.map push to... then join them all together
+//* SETUP function to add employee constructor:
+//      intial question: list; choices: ['engineer', 'intern']
+//      if intern, then run intern questions
+//      if engineer, then run engineer questions
+//      else stop loop
+//      send data to array, push 
 
 // engineer:
 // name, ID, email, and GitHub username
@@ -45,3 +62,5 @@ const generateHTML = require("./src/generateHTML");
 // intern:
 // name, ID, email, and school
 // email opens up defaul email app
+
+// * SETUP function to generate html
