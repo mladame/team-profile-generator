@@ -29,6 +29,7 @@ const generateHTML = require("./src/generateHTML");
 
 // make array for team members info
 
+// ! VALIDATE INPUT
 // prompted to enter team managers info
 // name, employee ID, email address, and office number
 // email opens up defaul email app
@@ -40,6 +41,29 @@ const generateHTML = require("./src/generateHTML");
 //     name: "managerName",
 //     message: "What is your managers name?"
 // },
+
+const projectManager = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is your managers name?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What the manager's employee ID number?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your managers email address?"
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is your managers office number?"
+    }
+]
 
 
 // then prompted to add employee
