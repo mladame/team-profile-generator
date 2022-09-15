@@ -86,5 +86,39 @@ const projectManager = [
 // intern:
 // name, ID, email, and school
 // email opens up defaul email app
+// *make into function, use .then
+const addEmployee = {[
+    {
+        type: "list",
+        name: "employeeType",
+        message: "What type of employee would you like to add?",
+        choices: ['engineer', 'intern']
+    },
+    {
+        type: "input",
+        name: "name",
+        message: "What type of employee would you like to add?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What type of employee would you like to add?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What type of employee would you like to add?"
+    }]
+
+    // if (choices === "engineer") {
+    //     // run engineer questions
+    // }
+    // if (choices === "intern") {
+    //     // run intern questions
+    // } else {
+    //     // dont add employee, stop questions, next questions
+    // }
+
+}
 
 // * SETUP function to generate html
