@@ -126,6 +126,11 @@ const askIntern = [
 
 // TODO create function to generate team profile html
 
+function writeToFile(data){
+    fs.writeFile('./dist/team-profile.html', data, err =>
+    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder.'))
+}
+
 // TODO create function to intialize app
 
 // TODO call function to intialize app
