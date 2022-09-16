@@ -27,21 +27,87 @@ const inquirer = require("inquirer");
 // define to generate html
 const generateHTML = require("./src/generateHTML");
 
-// make array for team members info
+// array for team members info
+const teamMembers = [];
 
-// prompted to enter team managers info
-// name, employee ID, email address, and office number
-// email opens up defaul email app
+// ! VALIDATE INPUT
 //* Setup function to add manager constructor FIRST
-//      questions will be input
-//?      .then send data to manager.js and build file or push to array first?
-// {
-//     type: "input",
-//     name: "managerName",
-//     message: "What is your managers name?"
-// },
+// questions arrays
+// Ask user for manager info
+const askManager = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is your managers name?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What the manager's employee ID number?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your managers email address?"
+    },
+    {
+        type: "input",
+        name: "office",
+        message: "What is your managers office number?"
+    }];
+
+// Ask user if they would like to add a new employe
+const confirmNewEmp = [
+        {
+            type: "confirm",
+            name: "choice",
+            message: "Would you like to add a new Employee?"
+        }];
+
+// Ask user for employee info
+const addEmployee = [
+    {
+        type: "list",
+        name: "role",
+        message: "What type of employee would you like to add?",
+        choices: ['engineer', 'intern']
+    },
+    {
+        type: "input",
+        name: "name",
+        message: "What is the name of this employee?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is this employee's ID number?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is this employee's email?"
+    }];
+
+// Ask user for Engineer info
+const askEngineer = [
+    {
+        type: "input",
+        name: "github",
+        message: "What is this Engineer's Github username?"
+    }
+];
+
+// Ask user for Intern info
+const askIntern = [
+    {
+        type: "input",
+        name: "school",
+        message: "What is the name of this Intern's school?"
+    }
+];
 
 
+// email opens up defaul email app
 // then prompted to add employee
 //  list of employee types: intern, engineer
 // loop this prompt in a while loop "while this is happening start from the beginning"
@@ -54,13 +120,40 @@ const generateHTML = require("./src/generateHTML");
 //      else stop loop
 //      send data to array, push 
 
-// engineer:
-// name, ID, email, and GitHub username
-// email opens up defaul email app
-// github username is used to creat a link to github profile
+//* prompt askManager() first, push input data to teamMemebers[],
+//*     prompt confirmNewEmp, if val.choice then addEmployee(), otherwise quit
+//*         prompt addEmployee(), push input data to teamMemebers[], 
 
-// intern:
-// name, ID, email, and school
-// email opens up defaul email app
+// TODO create function to generate team profile html
+
+// TODO create function to intialize app
+
+// TODO call function to intialize app
+
+// .then(data => {
+    // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
+// })};
+
+
+    // .then(val => {
+    //     // If the user says yes, add a new employee prompt, otherwise quit 
+    //     if (val.choice) {
+    //         addEmployee();
+    //     } else {
+    //         this.quit();
+    //     }
+    // });
+
+//     if (choices === "engineer") {
+//         // run engineer questions
+//     }
+//     if (choices === "intern") {
+//         // run intern questions
+//     }
+    
+// .then(data => {
+//     // push employee data to array
+// })
+// };
 
 // * SETUP function to generate html
