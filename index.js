@@ -56,6 +56,12 @@ const projectManager = () => {
         type: "input",
         name: "office",
         message: "What is your managers office number?"
+    },
+    // maybe separate??
+    {
+        type: "confirm",
+        name: "newEmpConf",
+        message: "Would you like to add a new employee?"
     }
 ])
 .then(data => {
@@ -89,7 +95,7 @@ const addEmployee = () => {
     return inquirer.prompt([
     {
         type: "list",
-        name: "employeeType",
+        name: "role",
         message: "What type of employee would you like to add?",
         choices: ['engineer', 'intern']
     },
