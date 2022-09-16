@@ -16,10 +16,10 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-// const manager = require("./lib/Manager");
-// const employee = require("./lib/Employee");
-// const engineer = require("./lib/Engineer");
-// const intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const Employee = require("./lib/Employee");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
@@ -134,9 +134,15 @@ function writeToFile(data){
 // TODO create function to intialize app
 
 function init() {
-    // askManager, push data to array
-    teamMembers.push(inquirer.prompt(askManager));
-    console.log(teamMembers);
+    inquirer.prompt(askManager)
+
+    // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+    // const  { name, id, email, office } = askManager; 
+    // const manager = new Manager (name, id, email, office);
+
+    // // askManager, push data to array
+    // teamMembers.push(manager);
+    // console.log(teamMembers);
     // console.log(data)
     
     // confirm new employee, if yes, addemployee functions, push data to array; else, quit and generate profile
@@ -148,12 +154,35 @@ function init() {
     //     }
 }
 
+function confirm() {
+    return inquirer.prompt(confirmNewEmp);
+}    
+
+
 // TODO call function to intialize app
 init()
 .then(data => {
     console.log(data);
-});
 
+    // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+    const  { name, id, email, office } = askManager; 
+    const manager = new Manager (name, id, email, office);
+
+    // askManager, push data to array
+    teamMembers.push(manager);
+    console.log(teamMembers);
+});
+confirm()
+.then(data => {
+        if (val.choice) {
+                return inquirer.prompt(addEmployee);
+            } else {
+                this.quit();
+            }
+})
+.then(data => {
+    
+})
 // .then(data => {
 //     return writeToFile(data);
 // })
