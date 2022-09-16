@@ -27,16 +27,14 @@ const inquirer = require("inquirer");
 // define to generate html
 const generateHTML = require("./src/generateHTML");
 
-// make array for team members info
+// array for team members info
+const teamMembers = [];
 
 // ! VALIDATE INPUT
-// email opens up defaul email app
 //* Setup function to add manager constructor FIRST
-//      questions will be input
-//?      .then send data to manager.js and build file or push to array first?
-
-const projectManager = () => {
-    return inquirer.prompt([
+// questions arrays
+// Ask user for manager info
+const askManager = [
     {
         type: "input",
         name: "name",
@@ -56,61 +54,18 @@ const projectManager = () => {
         type: "input",
         name: "office",
         message: "What is your managers office number?"
-    },
-    // maybe separate??
-    {
-        type: "confirm",
-        name: "newEmpConf",
-        message: "Would you like to add a new employee?"
-    }
-])
-.then(data => {
-    // data push to array, map/filter data first?
-})};
+    }];
 
 // Ask user if they would like to add a new employe
-askToPlayAgain() {
-    inquirer
-        .prompt([
+const confirmNewEmp = [
         {
             type: "confirm",
             name: "choice",
-            message: "Play Again?"
-        }
-    ])
-    .then(val => {
-        // If the user says yes to another game, play again, otherwise quit the game
-        if (val.choice) {
-            this.play();
-        } else {
-            this.quit();
-        }
-    });
-}
+            message: "Would you like to add a new Employee?"
+        }];
 
-// then prompted to add employee
-//  list of employee types: intern, engineer
-// loop this prompt in a while loop "while this is happening start from the beginning"
-// use push, map, filter, join, all info comes back as an object, we put that into an array
-// filter.map push to intern, filter.map push to... then join them all together
-//* SETUP function to add employee constructor:
-//      intial question: list; choices: ['engineer', 'intern']
-//      if intern, then run intern questions
-//      if engineer, then run engineer questions
-//      else stop loop
-//      send data to array, push 
-
-// engineer:
-// name, ID, email, and GitHub username
-// email opens up defaul email app
-// github username is used to creat a link to github profile
-
-// intern:
-// name, ID, email, and school
-// email opens up defaul email app
-// *make into function, use .then
-const addEmployee = () => {
-    return inquirer.prompt([
+// Ask user for employee info
+const addEmployee = [
     {
         type: "list",
         name: "role",
@@ -131,17 +86,72 @@ const addEmployee = () => {
         type: "input",
         name: "email",
         message: "What is this employee's email?"
-    }])
+    }];
 
-    // if (choices === "engineer") {
-    //     // run engineer questions
-    // }
-    // if (choices === "intern") {
-    //     // run intern questions
-    // } else {
-    //     // dont add employee, stop questions, next questions
-    // }
-.than(data => {
+// Ask user for Engineer info
+const askEngineer = [
+    {
+        type: "input",
+        name: "github",
+        message: "What is this Engineer's Github username?"
+    }
+];
+
+// Ask user for Intern info
+const askIntern = [
+    {
+        type: "input",
+        name: "school",
+        message: "What is the name of this Intern's school?"
+    }
+];
+
+
+// email opens up defaul email app
+// then prompted to add employee
+//  list of employee types: intern, engineer
+// loop this prompt in a while loop "while this is happening start from the beginning"
+// use push, map, filter, join, all info comes back as an object, we put that into an array
+// filter.map push to intern, filter.map push to... then join them all together
+//* SETUP function to add employee constructor:
+//      intial question: list; choices: ['engineer', 'intern']
+//      if intern, then run intern questions
+//      if engineer, then run engineer questions
+//      else stop loop
+//      send data to array, push 
+
+//* prompt askManager() first, push input data to teamMemebers[],
+//*     prompt confirmNewEmp, if val.choice then addEmployee(), otherwise quit
+//*         prompt addEmployee(), push input data to teamMemebers[], 
+
+// .then(data => {
+    // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
+// })};
+
+
+    // .then(val => {
+    //     // If the user says yes, add a new employee prompt, otherwise quit 
+    //     if (val.choice) {
+    //         addEmployee();
+    //     } else {
+    //         this.quit();
+    //     }
+    // });
+
+    if (choices === "engineer") {
+        // run engineer questions
+        return inquirer.prompt([
+
+        ])
+    }
+    if (choices === "intern") {
+        // run intern questions
+        return inquirer.prompt([
+
+        ])
+    }
+    
+.then(data => {
     // push employee data to array
 })
 };
