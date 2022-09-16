@@ -134,7 +134,7 @@ function writeToFile(data){
 // TODO create function to intialize app
 
 function init() {
-    inquirer.prompt(askManager)
+    return inquirer.prompt(askManager)
 
     // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
     // const  { name, id, email, office } = askManager; 
@@ -165,26 +165,35 @@ init()
     console.log(data);
 
     // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+    const role = "Manager";
     const  { name, id, email, office } = askManager; 
-    const manager = new Manager (name, id, email, office);
+    const manager = new Manager (name, id, email, office, role);
 
     // askManager, push data to array
-    teamMembers.push(manager);
+    teamMembers.push(data);
     console.log(teamMembers);
-});
-confirm()
-.then(data => {
-        if (val.choice) {
-                return inquirer.prompt(addEmployee);
-            } else {
-                this.quit();
-            }
+
+    confirm()
+    .then(data => {
+    if (val.choice) {
+            return inquirer.prompt(addEmployee);
+        } else {
+            this.quit();
+        }
+    })
+    .then(data => {
+        // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+        const  { role, name, id, email } = addEmployee; 
+        const employee = new Employee ( role, name, id, email);
+
+        // askManager, push data to array
+        teamMembers.push(employee);
+        console.log(teamMembers);
+    })
 })
-.then(data => {
-    
-})
+
 // .then(data => {
-//     return writeToFile(data);
+//     return writeToFile(data);node n
 // })
 // .catch(err => {
 //     console.log(err);
