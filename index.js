@@ -124,6 +124,12 @@ const askIntern = [
 //*     prompt confirmNewEmp, if val.choice then addEmployee(), otherwise quit
 //*         prompt addEmployee(), push input data to teamMemebers[], 
 
+// TODO create function to generate team profile html
+
+// TODO create function to intialize app
+
+// TODO call function to intialize app
+
 // .then(data => {
     // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
 // })};
@@ -138,22 +144,16 @@ const askIntern = [
     //     }
     // });
 
-    if (choices === "engineer") {
-        // run engineer questions
-        return inquirer.prompt([
-
-        ])
-    }
-    if (choices === "intern") {
-        // run intern questions
-        return inquirer.prompt([
-
-        ])
-    }
+//     if (choices === "engineer") {
+//         // run engineer questions
+//     }
+//     if (choices === "intern") {
+//         // run intern questions
+//     }
     
-.then(data => {
-    // push employee data to array
-})
-};
+// .then(data => {
+//     // push employee data to array
+// })
+// };
 
 // * SETUP function to generate html
