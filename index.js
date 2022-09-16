@@ -68,7 +68,25 @@ const projectManager = () => {
     // data push to array, map/filter data first?
 })};
 
-
+// Ask user if they would like to add a new employe
+askToPlayAgain() {
+    inquirer
+        .prompt([
+        {
+            type: "confirm",
+            name: "choice",
+            message: "Play Again?"
+        }
+    ])
+    .then(val => {
+        // If the user says yes to another game, play again, otherwise quit the game
+        if (val.choice) {
+            this.play();
+        } else {
+            this.quit();
+        }
+    });
+}
 
 // then prompted to add employee
 //  list of employee types: intern, engineer
