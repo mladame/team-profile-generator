@@ -16,16 +16,16 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-const manager = require("./lib/Manager");
-const employee = require("./lib/Employee");
-const engineer = require("./lib/Engineer");
-const intern = require("./lib/Intern");
+// const manager = require("./lib/Manager");
+// const employee = require("./lib/Employee");
+// const engineer = require("./lib/Engineer");
+// const intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
 
 // define to generate html
-const generateHTML = require("./src/generateHTML");
+// const generateHTML = require("./src/generateHTML");
 
 // array for team members info
 const teamMembers = [];
@@ -128,12 +128,38 @@ const askIntern = [
 
 function writeToFile(data){
     fs.writeFile('./dist/team-profile.html', data, err =>
-    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder.'))
+    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
 // TODO create function to intialize app
 
+function init() {
+    // askManager, push data to array
+    teamMembers.push(inquirer.prompt(askManager));
+    console.log(teamMembers);
+    // console.log(data)
+    
+    // confirm new employee, if yes, addemployee functions, push data to array; else, quit and generate profile
+
+        //     if (val.choice) {
+    //         addEmployee();
+    //     } else {
+    //         this.quit();
+    //     }
+}
+
 // TODO call function to intialize app
+init()
+.then(data => {
+    console.log(data);
+});
+
+// .then(data => {
+//     return writeToFile(data);
+// })
+// .catch(err => {
+//     console.log(err);
+// });
 
 // .then(data => {
     // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
