@@ -23,10 +23,8 @@ const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { resolve4 } = require("dns/promises");
-
-// define to generate html
-// const generateHTML = require("./src/generateHTML");
+const generateHTML = require("./dist/generateHTML");
+// const { resolve4 } = require("dns/promises");
 
 // array for team members info
 const teamMembers = [];
