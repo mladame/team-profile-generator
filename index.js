@@ -23,6 +23,7 @@ const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
+const { resolve4 } = require("dns/promises");
 
 // define to generate html
 // const generateHTML = require("./src/generateHTML");
@@ -113,46 +114,59 @@ const askIntern = [
 //*         prompt addEmployee(), push input data to teamMemebers[], 
 
 // TODO create function to generate team profile html
-
+// write new html file
 function writeToFile(data){
     fs.writeFile('./dist/team-profile.html', data, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
-// TODO create function to intialize app
-//  ask user for manager info
-function initTeam() {
-    return inquirer.prompt(addEmployee)
-    
-}
-
 // ask if user would like to add new employee
-function confirmEmp() {
-    return inquirer.prompt(confirmNewEmp);
-} 
+function confirmEmp() {return inquirer.prompt(confirmNewEmp);}
 
+//  returns user input
+function initTeam() {return inquirer.prompt(addEmployee)}
 
+function mInfo() {return inquirer.prompt(askManager)};
 
+function eInfo() {return inquirer.prompt(askEngineer)};
 
-// TODO call function to intialize app
+function iInfo() {return inquirer.prompt(askIntern)};
+
+// call function to intialize app
 initTeam()
 .then(data => {
     console.log(data);
 
     // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-    const role = "Employee";
-    const  { name, id, email } = data; 
-    const employee = new Employee (name, id, email, role);
+    const  { name, id, email, role } = data; 
+    const employee = new Employee (name, id, email);
 
     //todo make if loop for next question
+    if(role === "Manager"){
+        mInfo()
+        .then(data => {
+            
+        })
+    } else if(role === "Engineer"){
+                mInfo()
+        .then(data => {
+            
+        })
+    } else {
+        mInfo()
+        .then(data => {
+            
+        })
+    }
+    }
     //todo make output data for selected role using map ex. new manager = teamMembers.map
     //todo send "manager" to new array
     //todo build file from final array    
 
     // askManager, push data to array
     //todo add in function to sort through info before pushing manager, engineer, intern 
-    teamMembers.push(employee);
-    console.log(teamMembers);
+    // teamMembers.push(employee);
+    // console.log(teamMembers);
 
 
 
@@ -174,7 +188,7 @@ initTeam()
     //     teamMembers.push(x);
     //     console.log(teamMembers);
     // })
-})
+)
 
     // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
     // const  { name, id, email, office } = askManager; 
