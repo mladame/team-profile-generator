@@ -31,36 +31,16 @@ const inquirer = require("inquirer");
 const teamMembers = [];
 
 // ! VALIDATE INPUT
+// validate: (Function) Receive the user input and answers hash. Should return true if the value is valid, and an error message (String) otherwise. If false is returned, a default error message is provided.
 //* Setup function to add manager constructor FIRST
 // questions arrays
-// Ask user for manager info
-const askManager = [
-    {
-        type: "input",
-        name: "name",
-        message: "What is your managers name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What the manager's employee ID number?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your managers email address?"
-    },
-    {
-        type: "input",
-        name: "office",
-        message: "What is your managers office number?"
-    }];
+
 
 // Ask user if they would like to add a new employe
 const confirmNewEmp = [
         {
             type: "confirm",
-            name: "choice",
+            name: "add",
             message: "Would you like to add a new Employee?"
         }];
 
@@ -70,7 +50,7 @@ const addEmployee = [
         type: "list",
         name: "role",
         message: "What type of employee would you like to add?",
-        choices: ['engineer', 'intern']
+        choices: ['Manager', 'Engineer', 'Intern']
     },
     {
         type: "input",
@@ -87,6 +67,14 @@ const addEmployee = [
         name: "email",
         message: "What is this employee's email?"
     }];
+
+// Ask user for manager info
+const askManager = [
+    {
+        type: "input",
+        name: "office",
+        message: "What is this manager's office number?"
+}];
 
 // Ask user for Engineer info
 const askEngineer = [
@@ -132,9 +120,53 @@ function writeToFile(data){
 }
 
 // TODO create function to intialize app
+//  ask user for manager info
+function initTeam() {
+    return inquirer.prompt(addEmployee)
+    
+}
 
-function init() {
-    return inquirer.prompt(askManager)
+// ask if user would like to add new employee
+function confirmEmp() {
+    return inquirer.prompt(confirmNewEmp);
+} 
+
+
+
+
+// TODO call function to intialize app
+initTeam()
+.then(data => {
+    console.log(data);
+
+    // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+    const role = "Employee";
+    const  { name, id, email } = data; 
+    const employee = new Employee (name, id, email, role);
+
+    // askManager, push data to array
+    teamMembers.push(employee);
+    console.log(teamMembers);
+
+    // ask to add new employee
+    // confirmEmp()
+    // .then(data => {
+    // if (false) {
+            // quit
+    //     } else {
+    //         return inquirer.prompt(addEmployee);
+    //     }
+    // })
+    // .then(data => {
+        // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
+        // const  { name, id, email } = addEmployee; 
+        // const employee = new Employee (name, id, email, role);
+
+        // askManager, push data to array
+    //     teamMembers.push(x);
+    //     console.log(teamMembers);
+    // })
+})
 
     // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
     // const  { name, id, email, office } = askManager; 
@@ -152,45 +184,6 @@ function init() {
     //     } else {
     //         this.quit();
     //     }
-}
-
-function confirm() {
-    return inquirer.prompt(confirmNewEmp);
-}    
-
-
-// TODO call function to intialize app
-init()
-.then(data => {
-    console.log(data);
-
-    // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-    const role = "Manager";
-    const  { name, id, email, office } = askManager; 
-    const manager = new Manager (name, id, email, office, role);
-
-    // askManager, push data to array
-    teamMembers.push(data);
-    console.log(teamMembers);
-
-    confirm()
-    .then(data => {
-    if (val.choice) {
-            return inquirer.prompt(addEmployee);
-        } else {
-            this.quit();
-        }
-    })
-    .then(data => {
-        // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-        const  { role, name, id, email } = addEmployee; 
-        const employee = new Employee ( role, name, id, email);
-
-        // askManager, push data to array
-        teamMembers.push(employee);
-        console.log(teamMembers);
-    })
-})
 
 // .then(data => {
 //     return writeToFile(data);node n
