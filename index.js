@@ -144,9 +144,17 @@ initTeam()
     const  { name, id, email } = data; 
     const employee = new Employee (name, id, email, role);
 
+    //todo make if loop for next question
+    //todo make output data for selected role using map ex. new manager = teamMembers.map
+    //todo send "manager" to new array
+    //todo build file from final array    
+
     // askManager, push data to array
+    //todo add in function to sort through info before pushing manager, engineer, intern 
     teamMembers.push(employee);
     console.log(teamMembers);
+
+
 
     // ask to add new employee
     // confirmEmp()
