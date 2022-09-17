@@ -73,7 +73,7 @@ const addEmployee = [
 const askManager = [
     {
         type: "input",
-        name: "office",
+        name: "officeNumber",
         message: "What is this manager's office number?"
 }];
 
@@ -145,20 +145,32 @@ initTeam()
     if(role === "Manager"){
         mInfo()
         .then(data => {
-            
+            const { officeNumber } = data;
+            const manager = new Manager (officeNumber, role);
+            const teamManager = (manager, employee)
+            teamMembers.push(teamManager);
+            console.log(teamMembers);
         })
     } else if(role === "Engineer"){
-                mInfo()
+        eInfo()
         .then(data => {
-            
+            const { github } = data;
+            const engineer = new Engineer (github, role);
         })
     } else {
-        mInfo()
+        iInfo()
         .then(data => {
-            
+            const { school } = data;
+            const intern = new Intern (school, role);
         })
     }
     }
+
+    //* setup function
+    // add m/e/i info(custom, role) and employee info(name, id, email), 
+    // set to m/e/i 
+    // push to teamMembers for each new employee
+)    
     //todo make output data for selected role using map ex. new manager = teamMembers.map
     //todo send "manager" to new array
     //todo build file from final array    
@@ -188,7 +200,7 @@ initTeam()
     //     teamMembers.push(x);
     //     console.log(teamMembers);
     // })
-)
+
 
     // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
     // const  { name, id, email, office } = askManager; 
