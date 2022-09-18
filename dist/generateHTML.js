@@ -1,7 +1,3 @@
-
-
-
-
 //todo: function that generates engineer card
 function renderEngineerCard(){
 // fix template literals

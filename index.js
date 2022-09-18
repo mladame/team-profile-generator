@@ -5,14 +5,7 @@
 // THEN my default email program opens and populates the TO field of the email with the address (mail to)
 // WHEN I click on the GitHub username
 // THEN that GitHub profile opens in a new tab
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
@@ -24,6 +17,7 @@ const Intern = require("./lib/Intern");
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generateHTML = require("./dist/generateHTML");
+// const { profile } = require("console");
 // const { resolve4 } = require("dns/promises");
 
 // array for team members info
@@ -175,8 +169,9 @@ const askIntern = [
 ];
 
 // write new html file
-function writeToFile(data){
-    fs.writeFile('./dist/team-profile.html', teamMembers, err =>
+function writeToFile(teamMembers){ 
+    const teamMemberInfo = JSON.stringify(teamMembers)
+    fs.writeFile('./dist/team-profile.html', teamMemberInfo, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
@@ -225,12 +220,12 @@ function buildTeam(data) {
 // function to loop questions
 function roundabout() {
     confirmEmp()
-    .then(val => {
-        if(true){
-            buildTeam();
-        }        
+    .then(val => { 
+        while(true){
+            buildTeam()
+        }
     })
-
+    // .then(console.log("Building Profile..."))
 }
 
 // call function to intialize app
@@ -247,13 +242,14 @@ initTeam()
     // call function to start building team
     buildTeam()
 })
-// .then(data => {
-//     return writeToFile(data);
-// })
-// .catch(err => {
-//     console.log(err);
-// });
+.then(teamMembers => {
+    return generateHTML(teamMembers);
+})
+.then(data => {
+    return writeToFile(data);
+})
+.catch(err => {
+    console.log(err);
+});
 
-// .then(data => {
-    // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
-// })};
+module.exports = teamMembers;
