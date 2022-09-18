@@ -226,7 +226,9 @@ function buildTeam(data) {
         const teamEngineer = {...employee, ...engineer};
         teamMembers.push(teamEngineer);
         console.log(teamMembers);
+        // roundabout()
     })
+    .then(data => {roundabout()})
     } else {
     iInfo()
     .then(data => {
@@ -234,20 +236,23 @@ function buildTeam(data) {
         const intern = new Intern (school, role);
         const teamIntern = {...employee, ...intern};
         teamMembers.push(teamIntern);
+        // roundabout()
     })
+    .then(data => {roundabout()})
     }
-    
     })
+    
     
 }
 
 function roundabout() {
     confirmEmp()
-    .then(data => {
-        if (true) {
+    .then(val => {
+        if(true){
             buildTeam();
-        } 
+        }        
     })
+
 }
 
 // call function to intialize app
@@ -260,12 +265,13 @@ initTeam()
     const teamManager = { ...employee, ...manager};
     teamMembers.push(teamManager);
     // console.log(teamMembers);
-
-
-})
-.then(data => {
     buildTeam()
+    // .then(data => {
+    // roundabout()
+    // })
 })
+
+// .then(data => {roundabout()})
 
 
     // confirmEmp()
