@@ -54,17 +54,41 @@ const addEmployee = [
     {
         type: "input",
         name: "name",
-        message: "What is the name of this employee?"
+        message: "What is the name of this employee?",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter the employee name');
+                return false; 
+            }
+        }
     },
     {
         type: "input",
         name: "id",
-        message: "What is this employee's ID number?"
+        message: "What is this employee's ID number?",
+        validate: idInput => {
+            if (idInput) {
+                return true;
+            } else {
+                console.log('Please enter the employee ID.');
+                return false; 
+            }
+        }
     },
     {
         type: "input",
         name: "email",
-        message: "What is this employee's email?"
+        message: "What is this employee's email?",
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter an email address.');
+                return false; 
+            }
+        }
     }];
 
 // Ask user for manager info
@@ -72,7 +96,15 @@ const askManager = [
     {
         type: "input",
         name: "officeNumber",
-        message: "What is this manager's office number?"
+        message: "What is this manager's office number?",
+        validate: onInput => {
+            if (onInput) {
+                return true;
+            } else {
+                console.log('Please enter the office number.');
+                return false; 
+            }
+        }
 }];
 
 // Ask user for Engineer info
@@ -80,7 +112,15 @@ const askEngineer = [
     {
         type: "input",
         name: "github",
-        message: "What is this Engineer's Github username?"
+        message: "What is this Engineer's Github username?",
+        validate: githubInput => {
+            if (githubInput) {
+                return true;
+            } else {
+                console.log('Please enter a Github username.');
+                return false; 
+            }
+        }
     }
 ];
 
@@ -89,7 +129,15 @@ const askIntern = [
     {
         type: "input",
         name: "school",
-        message: "What is the name of this Intern's school?"
+        message: "What is the name of this Intern's school?",
+        validate: schoolInput => {
+            if (schoolInput) {
+                return true;
+            } else {
+                console.log('Please enter a school name.');
+                return false; 
+            }
+        }
     }
 ];
 
@@ -145,7 +193,7 @@ initTeam()
         .then(data => {
             const { officeNumber } = data;
             const manager = new Manager (officeNumber, role);
-            const teamManager = (manager, employee)
+            const teamManager = employee.concat(manager);
             teamMembers.push(teamManager);
             console.log(teamMembers);
         })
@@ -154,12 +202,16 @@ initTeam()
         .then(data => {
             const { github } = data;
             const engineer = new Engineer (github, role);
+            const teamEngineer = employee.concat(engineer);
+            teamMembers.push(teamEngineer);
         })
     } else {
         iInfo()
         .then(data => {
             const { school } = data;
             const intern = new Intern (school, role);
+            const teamIntern = employee.concat(intern);
+            teamMembers.push(teamIntern);
         })
     }
     }
