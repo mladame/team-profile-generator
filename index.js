@@ -195,7 +195,7 @@ const askIntern = [
 // TODO create function to generate team profile html
 // write new html file
 function writeToFile(data){
-    fs.writeFile('./dist/team-profile.html', data, err =>
+    fs.writeFile('./dist/team-profile.html', teamMembers, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
@@ -211,7 +211,7 @@ function eInfo() {return inquirer.prompt(askEngineer)};
 
 function iInfo() {return inquirer.prompt(askIntern)};
 
-function buildTeam() {
+function buildTeam(data) {
 
     // return employee info
     newEmp()
@@ -237,7 +237,11 @@ function buildTeam() {
     })
     }
     
-    roundabout = () => {
+    })
+    
+}
+
+function roundabout() {
     confirmEmp()
     .then(data => {
         if (true) {
@@ -245,12 +249,6 @@ function buildTeam() {
         } 
     })
 }
-
-    })
-    
-}
-
-
 
 // call function to intialize app
 initTeam()
@@ -262,9 +260,13 @@ initTeam()
     const teamManager = { ...employee, ...manager};
     teamMembers.push(teamManager);
     // console.log(teamMembers);
+
+
 })
-.then(buildTeam())
-.then(roundabout())
+.then(data => {
+    buildTeam()
+})
+
 
     // confirmEmp()
     // .then(data => {
