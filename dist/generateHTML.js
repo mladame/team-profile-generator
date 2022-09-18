@@ -1,6 +1,15 @@
+const teamMemberInfo = require("../index");
+const Intern = require("../lib/Intern");
+const Manager = require("../lib/Manager");
+const Engineer = require("../lib/Engineer");
+const Employee = require("../lib/Employee")
+const teamData = JSON.parse(teamMemberInfo);
+
 function renderManagerCard(){
+
+    
     // fix template literals
-    for (const member of teamMembers) {
+    for (const member of teamMemberInfo) {
         if (member.role === "Manager"){
             return `
 
@@ -24,7 +33,7 @@ function renderManagerCard(){
 //todo: function that generates engineer card
 function renderEngineerCard(){
 // fix template literals
-    for (const member of teamMembers) {
+    for (const member of teamMemberInfo) {
         if (member.role === "Engineer"){
             return `
 
@@ -49,7 +58,7 @@ function renderEngineerCard(){
 //todo: function that generates intern card
 function renderInternCard(){
     // fix template literals
-    for (const member of teamMembers) {
+    for (const member of teamMemberInfo) {
         if (member.role === "Intern"){
             return `
 

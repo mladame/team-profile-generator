@@ -22,6 +22,7 @@ const generateHTML = require("./dist/generateHTML");
 
 // array for team members info
 const teamMembers = [];
+const teamMemberInfo = JSON.stringify(teamMembers)
 
 // Ask user if they would like to add a new employe
 const confirmNewEmp = [
@@ -170,7 +171,7 @@ const askIntern = [
 
 // write new html file
 function writeToFile(teamMembers){ 
-    const teamMemberInfo = JSON.stringify(teamMembers)
+    
     fs.writeFile('./dist/team-profile.html', teamMemberInfo, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
@@ -242,8 +243,8 @@ initTeam()
     // call function to start building team
     buildTeam();
 })
-.then(teamMembers => {
-    return generateHTML(teamMembers);
+.then(teamMemberInfo => {
+    return generateHTML(teamMemberInfo);
 })
 .then(data => {
     return writeToFile(data);
@@ -252,4 +253,4 @@ initTeam()
     console.log(err);
 });
 
-module.exports = teamMembers;
+module.exports = teamMemberInfo;
