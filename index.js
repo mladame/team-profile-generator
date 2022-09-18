@@ -236,17 +236,21 @@ function buildTeam() {
         teamMembers.push(teamIntern);
     })
     }
+    
+    roundabout = () => {
     confirmEmp()
     .then(data => {
         if (true) {
             buildTeam();
-        } else {
-            // quit
-        }
+        } 
     })
-    })
-
 }
+
+    })
+    
+}
+
+
 
 // call function to intialize app
 initTeam()
@@ -258,8 +262,9 @@ initTeam()
     const teamManager = { ...employee, ...manager};
     teamMembers.push(teamManager);
     // console.log(teamMembers);
-    buildTeam();
 })
+.then(buildTeam())
+.then(roundabout())
 
     // confirmEmp()
     // .then(data => {
