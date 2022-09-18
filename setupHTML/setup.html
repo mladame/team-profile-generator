@@ -28,7 +28,7 @@
         </div>
         <div class="card-body text-dark">
             <h5 class="card-title my-3">${data.id}</h5>
-            <h5 class="card-title my-3">${data.email}</h5>
+            <h5 class="link card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
             <h5 class="card-title my-3">${data.office}</h5>
         </div>
     </div>
@@ -42,10 +42,8 @@
         </div>
         <div class="card-body text-dark">
             <h5 class="card-title my-3">ID: ${member.id}</h5>
-            <h5 class="card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
-            <h5 class="card-title my-3">${data.github}</h5>
-            <link rel="githubURL" href="">
-            <a href="https://github.com/${member.github}">Github</a>
+            <h5 class="link card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
+            <h5 class="link card-title my-3"><a href="https://github.com/${member.github}">Github</a></h5>
     </div>
     </div>
 
@@ -57,7 +55,7 @@
         </div>
         <div class="card-body text-dark">
             <h5 class="card-title my-3">ID: ${member.id}</h5>
-            <h5 class="card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
+            <h5 class="link card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
             <h5 class="card-title my-3">Education: ${member.school}</h5>
         </div>
     </div>
@@ -66,7 +64,4 @@
 
 </body>
 
-<footer>
-    
-</footer>
 </html>
