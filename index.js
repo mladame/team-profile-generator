@@ -211,32 +211,13 @@ function eInfo() {return inquirer.prompt(askEngineer)};
 
 function iInfo() {return inquirer.prompt(askIntern)};
 
-
-
-// call function to intialize app
-initTeam()
-.then(data => {
-    // console.log(data);
-    const  { name, id, email, officeNumber, role } = data; 
-    const manager = new Manager (officeNumber, role);
-    const employee = new Employee (name, id, email);
-    const teamManager = { ...employee, ...manager};
-    teamMembers.push(teamManager);
-    // console.log(teamMembers);
-
-})
-
-    confirmEmp()
-    .then(data => {
-    if (false) {
-            // quit and render html
-        } else {}
-
 function buildTeam() {
 
     // return employee info
     newEmp()
     .then(data => {
+    const  { name, id, email, role } = data;
+    const employee = new Employee (name, id, email, role);
     if(role === "Engineer"){
     eInfo()
     .then(data => {
@@ -255,9 +236,39 @@ function buildTeam() {
         teamMembers.push(teamIntern);
     })
     }
-    })
-        
+    confirmEmp()
+    .then(data => {
+        if (true) {
+            buildTeam();
+        } else {
+            // quit
         }
+    })
+    })
+
+}
+
+// call function to intialize app
+initTeam()
+.then(data => {
+    // console.log(data);
+    const  { name, id, email, officeNumber, role } = data; 
+    const manager = new Manager (officeNumber, role);
+    const employee = new Employee (name, id, email);
+    const teamManager = { ...employee, ...manager};
+    teamMembers.push(teamManager);
+    // console.log(teamMembers);
+    buildTeam();
+})
+
+    // confirmEmp()
+    // .then(data => {
+    // if (false) {
+    //         // quit and render html
+    //     } else {}
+    // })
+
+
 
 
 
@@ -346,25 +357,3 @@ function buildTeam() {
 // })};
 
 
-    // .then(val => {
-    //     // If the user says yes, add a new employee prompt, otherwise quit 
-    //     if (val.choice) {
-    //         addEmployee();
-    //     } else {
-    //         this.quit();
-    //     }
-    // });
-
-//     if (choices === "engineer") {
-//         // run engineer questions
-//     }
-//     if (choices === "intern") {
-//         // run intern questions
-//     }
-    
-// .then(data => {
-//     // push employee data to array
-// })
-// };
-
-// * SETUP function to generate html
