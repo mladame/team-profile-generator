@@ -170,9 +170,9 @@ const askIntern = [
 ];
 
 // write new html file
-function writeToFile(teamMembers){ 
+function writeToFile(data){ 
     
-    fs.writeFile('./dist/team-profile.html', teamMemberInfo, err =>
+    fs.writeFile('./dist/team-profile.html', data, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
@@ -193,13 +193,13 @@ function buildTeam(data) {
 
     newEmp()
     .then(data => {
-    const  { name, id, email, role } = data;
-    const employee = new Employee (name, id, email, role);
+    const  { name, id, email } = data;
+    const employee = new Employee (name, id, email);
     if(role === "Engineer"){
     eInfo()
     .then(data => {
         const { github } = data;
-        const engineer = new Engineer (github, role);
+        const engineer = new Engineer (github);
         const teamEngineer = {...employee, ...engineer};
         teamMembers.push(teamEngineer);
         console.log(teamMembers);
@@ -209,7 +209,7 @@ function buildTeam(data) {
     iInfo()
     .then(data => {
         const { school } = data;
-        const intern = new Intern (school, role);
+        const intern = new Intern (school);
         const teamIntern = {...employee, ...intern};
         teamMembers.push(teamIntern);
     })
@@ -234,8 +234,8 @@ initTeam()
 .then(data => {
     
     // define data for manager
-    const  { name, id, email, officeNumber, role } = data; 
-    const manager = new Manager (officeNumber, role);
+    const  { name, id, email, officeNumber } = data; 
+    const manager = new Manager (officeNumber);
     const employee = new Employee (name, id, email);
     const teamManager = { ...employee, ...manager};
     teamMembers.push(teamManager);
@@ -243,8 +243,8 @@ initTeam()
     // call function to start building team
     buildTeam();
 })
-.then(teamMemberInfo => {
-    return generateHTML(teamMemberInfo);
+.then(data => {
+    return generateHTML(data);
 })
 .then(data => {
     return writeToFile(data);
@@ -252,5 +252,3 @@ initTeam()
 .catch(err => {
     console.log(err);
 });
-
-module.exports = teamMemberInfo;

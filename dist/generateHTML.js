@@ -1,34 +1,31 @@
-const teamMemberInfo = require("../index");
 const Intern = require("../lib/Intern");
 const Manager = require("../lib/Manager");
 const Engineer = require("../lib/Engineer");
-const Employee = require("../lib/Employee")
-const teamData = JSON.parse(teamMemberInfo);
 
 function renderManagerCard(){
 
-    
+    const manager = new Manager 
     // fix template literals
-    for (const member of teamMemberInfo) {
-        if (member.role === "Manager"){
+    // for (const member of teamMemberInfo) {
+    //     if (member.role === "Manager"){
             return `
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${member.name}</h2>
+                <h2>${manager.getName()}</h2>
                 <h3>Manager <i class="fa-solid fa-mug-saucer"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">${member.id}</h5>
-                <h5 class="link card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
-                <h5 class="card-title my-3">${member.officeNumber}</h5>
+                <h5 class="card-title my-3">${manager.getId()}</h5>
+                <h5 class="link card-title my-3"><a href="mailto:${manager.getEmail()}">Send Email</a></h5>
+                <h5 class="card-title my-3">${manager.getofficeNumber()}</h5>
             </div>
         </div>
         
             `
         }
-    }
-}
+//     }
+// }
 
 //todo: function that generates engineer card
 function renderEngineerCard(){
