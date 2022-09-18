@@ -5,62 +5,29 @@
 // THEN my default email program opens and populates the TO field of the email with the address (mail to)
 // WHEN I click on the GitHub username
 // THEN that GitHub profile opens in a new tab
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-const manager = require("./lib/Manager");
-const employee = require("./lib/Employee");
-const engineer = require("./lib/Engineer");
-const intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const Employee = require("./lib/Employee");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
-
-// define to generate html
-const generateHTML = require("./src/generateHTML");
+const generateHTML = require("./dist/generateHTML");
+// const { profile } = require("console");
+// const { resolve4 } = require("dns/promises");
 
 // array for team members info
 const teamMembers = [];
-
-// ! VALIDATE INPUT
-//* Setup function to add manager constructor FIRST
-// questions arrays
-// Ask user for manager info
-const askManager = [
-    {
-        type: "input",
-        name: "name",
-        message: "What is your managers name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What the manager's employee ID number?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is your managers email address?"
-    },
-    {
-        type: "input",
-        name: "office",
-        message: "What is your managers office number?"
-    }];
 
 // Ask user if they would like to add a new employe
 const confirmNewEmp = [
         {
             type: "confirm",
-            name: "choice",
+            name: "add",
             message: "Would you like to add a new Employee?"
         }];
 
@@ -70,30 +37,117 @@ const addEmployee = [
         type: "list",
         name: "role",
         message: "What type of employee would you like to add?",
-        choices: ['engineer', 'intern']
+        choices: ['Engineer', 'Intern']
     },
     {
         type: "input",
         name: "name",
-        message: "What is the name of this employee?"
+        message: "What is the name of this employee?",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter the employee name');
+                return false; 
+            }
+        }
     },
     {
         type: "input",
         name: "id",
-        message: "What is this employee's ID number?"
+        message: "What is this employee's ID number?",
+        validate: idInput => {
+            if (idInput) {
+                return true;
+            } else {
+                console.log('Please enter the employee ID.');
+                return false; 
+            }
+        }
     },
     {
         type: "input",
         name: "email",
-        message: "What is this employee's email?"
+        message: "What is this employee's email?",
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter an email address.');
+                return false; 
+            }
+        }
     }];
+
+// Ask user for manager info
+const askManager = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is the team manager's name?",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter the name of the manager.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the manager's ID number?",
+        validate: idInput => {
+            if (idInput) {
+                return true;
+            } else {
+                console.log('Please enter the manager ID.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the manager's email?",
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter an email address.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the manager's office number?",
+        validate: onInput => {
+            if (onInput) {
+                return true;
+            } else {
+                console.log('Please enter the office number.');
+                return false; 
+            }
+        }
+}];
 
 // Ask user for Engineer info
 const askEngineer = [
     {
         type: "input",
         name: "github",
-        message: "What is this Engineer's Github username?"
+        message: "What is this Engineer's Github username?",
+        validate: githubInput => {
+            if (githubInput) {
+                return true;
+            } else {
+                console.log('Please enter a Github username.');
+                return false; 
+            }
+        }
     }
 ];
 
@@ -102,58 +156,100 @@ const askIntern = [
     {
         type: "input",
         name: "school",
-        message: "What is the name of this Intern's school?"
+        message: "What is the name of this Intern's school?",
+        validate: schoolInput => {
+            if (schoolInput) {
+                return true;
+            } else {
+                console.log('Please enter a school name.');
+                return false; 
+            }
+        }
     }
 ];
 
+// write new html file
+function writeToFile(teamMembers){ 
+    const teamMemberInfo = JSON.stringify(teamMembers)
+    fs.writeFile('./dist/team-profile.html', teamMemberInfo, err =>
+    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
+}
 
-// email opens up defaul email app
-// then prompted to add employee
-//  list of employee types: intern, engineer
-// loop this prompt in a while loop "while this is happening start from the beginning"
-// use push, map, filter, join, all info comes back as an object, we put that into an array
-// filter.map push to intern, filter.map push to... then join them all together
-//* SETUP function to add employee constructor:
-//      intial question: list; choices: ['engineer', 'intern']
-//      if intern, then run intern questions
-//      if engineer, then run engineer questions
-//      else stop loop
-//      send data to array, push 
+// ask if user would like to add new employee
+function confirmEmp() {return inquirer.prompt(confirmNewEmp);}
 
-//* prompt askManager() first, push input data to teamMemebers[],
-//*     prompt confirmNewEmp, if val.choice then addEmployee(), otherwise quit
-//*         prompt addEmployee(), push input data to teamMemebers[], 
+//  returns user input
+function initTeam() {return inquirer.prompt(askManager)}
 
-// TODO create function to generate team profile html
+function newEmp() {return inquirer.prompt(addEmployee)};
 
-// TODO create function to intialize app
+function eInfo() {return inquirer.prompt(askEngineer)};
 
-// TODO call function to intialize app
+function iInfo() {return inquirer.prompt(askIntern)};
 
-// .then(data => {
-    // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
-// })};
+// function to build team
+function buildTeam(data) {
 
-
-    // .then(val => {
-    //     // If the user says yes, add a new employee prompt, otherwise quit 
-    //     if (val.choice) {
-    //         addEmployee();
-    //     } else {
-    //         this.quit();
-    //     }
-    // });
-
-//     if (choices === "engineer") {
-//         // run engineer questions
-//     }
-//     if (choices === "intern") {
-//         // run intern questions
-//     }
+    newEmp()
+    .then(data => {
+    const  { name, id, email, role } = data;
+    const employee = new Employee (name, id, email, role);
+    if(role === "Engineer"){
+    eInfo()
+    .then(data => {
+        const { github } = data;
+        const engineer = new Engineer (github, role);
+        const teamEngineer = {...employee, ...engineer};
+        teamMembers.push(teamEngineer);
+        console.log(teamMembers);
+    })
+    .then(data => {roundabout()})
+    } else {
+    iInfo()
+    .then(data => {
+        const { school } = data;
+        const intern = new Intern (school, role);
+        const teamIntern = {...employee, ...intern};
+        teamMembers.push(teamIntern);
+    })
+    .then(data => {roundabout()})
+    }
+    })
     
-// .then(data => {
-//     // push employee data to array
-// })
-// };
+}
+// function to loop questions
+function roundabout() {
+    confirmEmp()
+    .then(val => { 
+        if(true){
+            buildTeam();
+        }
+    })
+    // .then(console.log("Building Profile..."))
+}
 
-// * SETUP function to generate html
+// call function to intialize app
+initTeam()
+.then(data => {
+    
+    // define data for manager
+    const  { name, id, email, officeNumber, role } = data; 
+    const manager = new Manager (officeNumber, role);
+    const employee = new Employee (name, id, email);
+    const teamManager = { ...employee, ...manager};
+    teamMembers.push(teamManager);
+
+    // call function to start building team
+    buildTeam();
+})
+.then(teamMembers => {
+    return generateHTML(teamMembers);
+})
+.then(data => {
+    return writeToFile(data);
+})
+.catch(err => {
+    console.log(err);
+});
+
+module.exports = teamMembers;
