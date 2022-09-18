@@ -221,8 +221,8 @@ function buildTeam(data) {
 function roundabout() {
     confirmEmp()
     .then(val => { 
-        while(true){
-            buildTeam()
+        if(true){
+            buildTeam();
         }
     })
     // .then(console.log("Building Profile..."))
@@ -240,7 +240,7 @@ initTeam()
     teamMembers.push(teamManager);
 
     // call function to start building team
-    buildTeam()
+    buildTeam();
 })
 .then(teamMembers => {
     return generateHTML(teamMembers);
