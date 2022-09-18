@@ -174,25 +174,6 @@ const askIntern = [
     }
 ];
 
-
-// email opens up defaul email app
-// then prompted to add employee
-//  list of employee types: intern, engineer
-// loop this prompt in a while loop "while this is happening start from the beginning"
-// use push, map, filter, join, all info comes back as an object, we put that into an array
-// filter.map push to intern, filter.map push to... then join them all together
-//* SETUP function to add employee constructor:
-//      intial question: list; choices: ['engineer', 'intern']
-//      if intern, then run intern questions
-//      if engineer, then run engineer questions
-//      else stop loop
-//      send data to array, push 
-
-//* prompt askManager() first, push input data to teamMemebers[],
-//*     prompt confirmNewEmp, if val.choice then addEmployee(), otherwise quit
-//*         prompt addEmployee(), push input data to teamMemebers[], 
-
-// TODO create function to generate team profile html
 // write new html file
 function writeToFile(data){
     fs.writeFile('./dist/team-profile.html', teamMembers, err =>
@@ -211,9 +192,9 @@ function eInfo() {return inquirer.prompt(askEngineer)};
 
 function iInfo() {return inquirer.prompt(askIntern)};
 
+// function to build team
 function buildTeam(data) {
 
-    // return employee info
     newEmp()
     .then(data => {
     const  { name, id, email, role } = data;
@@ -226,7 +207,6 @@ function buildTeam(data) {
         const teamEngineer = {...employee, ...engineer};
         teamMembers.push(teamEngineer);
         console.log(teamMembers);
-        // roundabout()
     })
     .then(data => {roundabout()})
     } else {
@@ -236,15 +216,13 @@ function buildTeam(data) {
         const intern = new Intern (school, role);
         const teamIntern = {...employee, ...intern};
         teamMembers.push(teamIntern);
-        // roundabout()
     })
     .then(data => {roundabout()})
     }
     })
     
-    
 }
-
+// function to loop questions
 function roundabout() {
     confirmEmp()
     .then(val => {
@@ -258,108 +236,19 @@ function roundabout() {
 // call function to intialize app
 initTeam()
 .then(data => {
-    // console.log(data);
+    
+    // define data for manager
     const  { name, id, email, officeNumber, role } = data; 
     const manager = new Manager (officeNumber, role);
     const employee = new Employee (name, id, email);
     const teamManager = { ...employee, ...manager};
     teamMembers.push(teamManager);
-    // console.log(teamMembers);
+
+    // call function to start building team
     buildTeam()
-    // .then(data => {
-    // roundabout()
-    // })
 })
-
-// .then(data => {roundabout()})
-
-
-    // confirmEmp()
-    // .then(data => {
-    // if (false) {
-    //         // quit and render html
-    //     } else {}
-    // })
-
-
-
-
-
-
-        
-
-
-    //todo make if loop for next question
-    // if(role === "Manager"){
-    //     mInfo()
-    //     .then(data => {
-    //         const { officeNumber } = data;
-    //         const manager = new Manager (officeNumber, role);
-    //         const teamManager = employee.concat(manager);
-    //         teamMembers.push(teamManager);
-    //         console.log(teamMembers);
-    //     })
-    // } else 
-
-
-
-    
-
-    //* setup function
-    // add m/e/i info(custom, role) and employee info(name, id, email), 
-    // set to m/e/i 
-    // push to teamMembers for each new employee
-    
-    //todo make output data for selected role using map ex. new manager = teamMembers.map
-    //todo send "manager" to new array
-    //todo build file from final array    
-
-    // askManager, push data to array
-    //todo add in function to sort through info before pushing manager, engineer, intern 
-    // teamMembers.push(employee);
-    // console.log(teamMembers);
-
-
-
-    // ask to add new employee
-    // confirmEmp()
-    // .then(data => {
-    // if (false) {
-            // quit
-    //     } else {
-    //         return inquirer.prompt(addEmployee);
-    //     }
-    // })
-    // .then(data => {
-        // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-        // const  { name, id, email } = addEmployee; 
-        // const employee = new Employee (name, id, email, role);
-
-        // askManager, push data to array
-    //     teamMembers.push(x);
-    //     console.log(teamMembers);
-    // })
-
-
-    // // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-    // const  { name, id, email, office } = askManager; 
-    // const manager = new Manager (name, id, email, office);
-
-    // // askManager, push data to array
-    // teamMembers.push(manager);
-    // console.log(teamMembers);
-    // console.log(data)
-    
-    // confirm new employee, if yes, addemployee functions, push data to array; else, quit and generate profile
-
-        //     if (val.choice) {
-    //         addEmployee();
-    //     } else {
-    //         this.quit();
-    //     }
-
 // .then(data => {
-//     return writeToFile(data);node n
+//     return writeToFile(data);
 // })
 // .catch(err => {
 //     console.log(err);
@@ -368,5 +257,3 @@ initTeam()
 // .then(data => {
     // data push to array, map/filter data first?, write file generateHTML once array is full, call confirmNewEmp
 // })};
-
-
