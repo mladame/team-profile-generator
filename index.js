@@ -29,12 +29,6 @@ const generateHTML = require("./dist/generateHTML");
 // array for team members info
 const teamMembers = [];
 
-// ! VALIDATE INPUT
-// validate: (Function) Receive the user input and answers hash. Should return true if the value is valid, and an error message (String) otherwise. If false is returned, a default error message is provided.
-//* Setup function to add manager constructor FIRST
-// questions arrays
-
-
 // Ask user if they would like to add a new employe
 const confirmNewEmp = [
         {
@@ -49,7 +43,7 @@ const addEmployee = [
         type: "list",
         name: "role",
         message: "What type of employee would you like to add?",
-        choices: ['Manager', 'Engineer', 'Intern']
+        choices: ['Engineer', 'Intern']
     },
     {
         type: "input",
@@ -95,8 +89,47 @@ const addEmployee = [
 const askManager = [
     {
         type: "input",
+        name: "name",
+        message: "What is the team manager's name?",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter the name of the manager.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the manager's ID number?",
+        validate: idInput => {
+            if (idInput) {
+                return true;
+            } else {
+                console.log('Please enter the manager ID.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the manager's email?",
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter an email address.');
+                return false; 
+            }
+        }
+    },
+    {
+        type: "input",
         name: "officeNumber",
-        message: "What is this manager's office number?",
+        message: "What is the manager's office number?",
         validate: onInput => {
             if (onInput) {
                 return true;
@@ -170,57 +203,89 @@ function writeToFile(data){
 function confirmEmp() {return inquirer.prompt(confirmNewEmp);}
 
 //  returns user input
-function initTeam() {return inquirer.prompt(addEmployee)}
+function initTeam() {return inquirer.prompt(askManager)}
 
-function mInfo() {return inquirer.prompt(askManager)};
+function newEmp() {return inquirer.prompt(addEmployee)};
 
 function eInfo() {return inquirer.prompt(askEngineer)};
 
 function iInfo() {return inquirer.prompt(askIntern)};
 
+
+
 // call function to intialize app
 initTeam()
 .then(data => {
-    console.log(data);
-
-    // need array deconstructor (manager(name, id, email, office)), need to be able to make new manager
-    const  { name, id, email, role } = data; 
+    // console.log(data);
+    const  { name, id, email, officeNumber, role } = data; 
+    const manager = new Manager (officeNumber, role);
     const employee = new Employee (name, id, email);
+    const teamManager = { ...employee, ...manager};
+    teamMembers.push(teamManager);
+    // console.log(teamMembers);
+
+})
+
+    confirmEmp()
+    .then(data => {
+    if (false) {
+            // quit and render html
+        } else {}
+
+function buildTeam() {
+
+    // return employee info
+    newEmp()
+    .then(data => {
+    if(role === "Engineer"){
+    eInfo()
+    .then(data => {
+        const { github } = data;
+        const engineer = new Engineer (github, role);
+        const teamEngineer = {...employee, ...engineer};
+        teamMembers.push(teamEngineer);
+        console.log(teamMembers);
+    })
+    } else {
+    iInfo()
+    .then(data => {
+        const { school } = data;
+        const intern = new Intern (school, role);
+        const teamIntern = {...employee, ...intern};
+        teamMembers.push(teamIntern);
+    })
+    }
+    })
+        
+        }
+
+
+
+
+        
+
 
     //todo make if loop for next question
-    if(role === "Manager"){
-        mInfo()
-        .then(data => {
-            const { officeNumber } = data;
-            const manager = new Manager (officeNumber, role);
-            const teamManager = employee.concat(manager);
-            teamMembers.push(teamManager);
-            console.log(teamMembers);
-        })
-    } else if(role === "Engineer"){
-        eInfo()
-        .then(data => {
-            const { github } = data;
-            const engineer = new Engineer (github, role);
-            const teamEngineer = employee.concat(engineer);
-            teamMembers.push(teamEngineer);
-        })
-    } else {
-        iInfo()
-        .then(data => {
-            const { school } = data;
-            const intern = new Intern (school, role);
-            const teamIntern = employee.concat(intern);
-            teamMembers.push(teamIntern);
-        })
-    }
-    }
+    // if(role === "Manager"){
+    //     mInfo()
+    //     .then(data => {
+    //         const { officeNumber } = data;
+    //         const manager = new Manager (officeNumber, role);
+    //         const teamManager = employee.concat(manager);
+    //         teamMembers.push(teamManager);
+    //         console.log(teamMembers);
+    //     })
+    // } else 
+
+
+
+    
 
     //* setup function
     // add m/e/i info(custom, role) and employee info(name, id, email), 
     // set to m/e/i 
     // push to teamMembers for each new employee
-)    
+    
     //todo make output data for selected role using map ex. new manager = teamMembers.map
     //todo send "manager" to new array
     //todo build file from final array    
