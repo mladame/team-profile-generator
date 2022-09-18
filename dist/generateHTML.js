@@ -5,7 +5,7 @@ const Engineer = require("../lib/Engineer");
 function renderManagerCard(){
 
     const manager = new Manager 
-    // fix template literals
+    // fix template literalscl
     // for (const member of teamMemberInfo) {
     //     if (member.role === "Manager"){
             return `
@@ -18,7 +18,7 @@ function renderManagerCard(){
             <div class="card-body text-dark">
                 <h5 class="card-title my-3">${manager.getId()}</h5>
                 <h5 class="link card-title my-3"><a href="mailto:${manager.getEmail()}">Send Email</a></h5>
-                <h5 class="card-title my-3">${manager.getofficeNumber()}</h5>
+                <h5 class="card-title my-3">${manager.getOfficeNumber()}</h5>
             </div>
         </div>
         
@@ -29,52 +29,56 @@ function renderManagerCard(){
 
 //todo: function that generates engineer card
 function renderEngineerCard(){
+
+    const engineer = new Engineer
 // fix template literals
-    for (const member of teamMemberInfo) {
-        if (member.role === "Engineer"){
+    // for (const member of teamMemberInfo) {
+    //     if (member.role === "Engineer"){
             return `
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${member.name}</h2>
+                <h2>${engineer.getName()}</h2>
                 <h3>Engineer <i class="fa-solid fa-gear"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">ID: ${member.id}</h5>
-                <h5 class="card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
-                <h5 class="card-title my-3"><a href="https://github.com/${member.github}">Github</a></h5>
+                <h5 class="card-title my-3">ID: ${engineer.getId()}</h5>
+                <h5 class="card-title my-3"><a href="mailto:${engineer.getEmail()}">Send Email</a></h5>
+                <h5 class="card-title my-3"><a href="https://github.com/${engineer.getGithub()}">Github</a></h5>
         </div>
         </div>
         
             `
         }
-    }
-}
+//     }
+// }
 
 
 //todo: function that generates intern card
 function renderInternCard(){
-    // fix template literals
-    for (const member of teamMemberInfo) {
-        if (member.role === "Intern"){
+
+    const intern = new Intern;
+    // // fix template literals
+    // for (const member of teamMemberInfo) {
+    //     if (member.role === "Intern"){
             return `
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${member.name}</h2>
+                <h2>${intern.getName()}</h2>
                 <h3>Intern <i class="fa-solid fa-graduation-cap"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">ID: ${member.id}</h5>
-                <h5 class="card-title my-3"><a href="mailto:${member.email}">Send Email</a></h5>
-                <h5 class="card-title my-3">Education: ${member.school}</h5>
+                <h5 class="card-title my-3">ID: ${intern.getId()}</h5>
+                <h5 class="card-title my-3"><a href="mailto:${intern.getEmail()}">Send Email</a></h5>
+                <h5 class="card-title my-3">Education: ${intern.getSchool()}</h5>
             </div>
         </div>
         
             `
         }
-    }
-}
+//     }
+// }
 
 
 function generateHTML(){
