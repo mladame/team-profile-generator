@@ -172,32 +172,32 @@ const askIntern = [
 
 // write new html file
 function writeToFile(data){ 
-    
-    fs.writeFile('./dist/team-profile.html', data, err =>
+    const teamInfo = JSON.stringify(data);
+    fs.writeFile('./dist/team-profile.html', teamInfo, err =>
     err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
 }
 
 // ask if user would like to add new employee
-function confirmEmp() {return inquirer.prompt(confirmNewEmp);}
+// function confirmEmp() {return inquirer.prompt(confirmNewEmp);}
 
 //  returns user input
-function initTeam() {return inquirer.prompt(askManager)}
+// function mInfo() {return inquirer.prompt(askManager)}
 
-function newEmp() {return inquirer.prompt(addEmployee)};
+// function newEmp() {return inquirer.prompt(addEmployee)};
 
-function eInfo() {return inquirer.prompt(askEngineer)};
+// function eInfo() {return inquirer.prompt(askEngineer)};
 
-function iInfo() {return inquirer.prompt(askIntern)};
+// function iInfo() {return inquirer.prompt(askIntern)};
 
 // function to build team
-function buildTeam(data) {
+function buildTeam() {
 
-    newEmp()
+    inquirer.prompt(addEmployee)
     .then(data => {
     const  { name, id, email, role } = data;
     const employee = new Employee (name, id, email, role);
     if(role === "Engineer"){
-    eInfo()
+        inquirer.prompt(askEngineer)
     .then(data => {
         const { github } = data;
         const engineer = new Engineer (github);
@@ -205,34 +205,50 @@ function buildTeam(data) {
         teamMembers.push(teamEngineer);
         console.log(teamMembers);
     })
-    .then(data => {roundabout()})
+    // .then(data => {roundabout()})
     } else {
-    iInfo()
+        inquirer.prompt(askIntern)
     .then(data => {
         const { school } = data;
         const intern = new Intern (school);
         const teamIntern = {...employee, ...intern};
         teamMembers.push(teamIntern);
     })
-    .then(data => {roundabout()})
+    // .then(data => {roundabout()})
     }
     })
     
 }
 // function to loop questions
 function roundabout() {
-    confirmEmp()
+    inquirer.prompt(confirmNewEmp)
     .then(val => { 
-        if(true){
-            buildTeam();
-        }
+        // if(true){
+        //     buildTeam();
+        // } 
+    true ? buildTeam() : generateHTML(data);
     })
+    .then(data => {
+        writeToFile(data);
+    })
+    .catch(err => {
+        console.log(err);
+    });
     // .then(console.log("Building Profile..."))
 }
 
 // call function to intialize app
-initTeam()
-.then(data => {
+
+
+// .then(data => {
+//     return generateHTML(data);
+// })
+
+
+function initTeam() {
+
+    inquirer.prompt(askManager)
+    .then(data => {
     
     // define data for manager
     const  { name, id, email, officeNumber } = data; 
@@ -242,14 +258,8 @@ initTeam()
     teamMembers.push(teamManager);
 
     // call function to start building team
-    buildTeam();
-})
-.then(data => {
-    return generateHTML(data);
-})
-.then(data => {
-    return writeToFile(data);
-})
-.catch(err => {
-    console.log(err);
-});
+    buildTeam()
+    })
+    .then(data => {roundabout()})
+}
+initTeam()
