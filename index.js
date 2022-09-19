@@ -15,6 +15,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
 const fs = require("fs");
+const path = require("path");
 const inquirer = require("inquirer");
 const generateHTML = require("./dist/generateHTML");
 // const { profile } = require("console");
@@ -193,8 +194,8 @@ function buildTeam(data) {
 
     newEmp()
     .then(data => {
-    const  { name, id, email } = data;
-    const employee = new Employee (name, id, email);
+    const  { name, id, email, role } = data;
+    const employee = new Employee (name, id, email, role);
     if(role === "Engineer"){
     eInfo()
     .then(data => {
