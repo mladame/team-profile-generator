@@ -15,25 +15,6 @@ const teamMembers = [];
 const idArray = [];
 const teamMembersInfo = JSON.stringify(teamMembers);
 
-// Ask user if they would like to add a new employe
-function confirmEmp() {
-    inquirer.prompt([
-        {
-            type: "confirm",
-            name: "addEmployee",
-            message: "Would you like to add a new Employee?"
-        }
-    ])
-    .then((answers) => {
-        if(true){
-            buildTeam();
-        }
-        generateHTML(data);
-    })
-};
-
-
-
 // Ask user for manager info
 function app() {
 
@@ -175,7 +156,7 @@ function app() {
                 const engineer = new Engineer (answers.engineerGithub);
                 teamMembers.push(engineer);
                 idArray.push(answers.employeeId);
-                // confirmEmp()
+                confirmEmp()
             })
         };
 
@@ -202,13 +183,34 @@ function app() {
             })
         };
 
+    // Ask user if they would like to add a new employee - calls buildTeam() or generates profile
+        function confirmEmp() {
+            inquirer.prompt([
+                {
+                    type: "confirm",
+                    name: "addEmployee",
+                    message: "Would you like to add a new Employee?"
+                }
+            ])
+            .then((answers) => {
+                if(true){
+                    buildTeam()
+                } else {}
+                    // writeProfile()
+            })
+        };
+
+
+
     askManager()
 }
 app()
 
 
 
+// function writeProfile(){
 
+// }
 
 
 
