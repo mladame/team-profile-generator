@@ -16,12 +16,15 @@ const idArray = [];
 const teamMembersInfo = JSON.stringify(teamMembers);
 
 // Ask user if they would like to add a new employe
-const confirmNewEmp = [
+function confirmEmp() {
+    inquirer.prompt([
         {
             type: "confirm",
-            name: "add",
+            name: "addEmployee",
             message: "Would you like to add a new Employee?"
-        }];
+        }
+    ])
+};
 
 // Ask user for employee info
 function addEmployee() {
@@ -153,38 +156,36 @@ app()
 
 
 // Ask user for Engineer info
-const askEngineer = [
+function askEngineer() {
+    inquirer.prompt([
     {
         type: "input",
-        name: "github",
+        name: "engineerGithub",
         message: "What is this Engineer's Github username?",
-        validate: githubInput => {
-            if (githubInput) {
+        validate: answer => {
+            if (answer !== '') {
                 return true;
-            } else {
-                console.log('Please enter a Github username.');
-                return false; 
             }
+            return 'Please enter a Github username.'; 
         }
     }
-];
+])};
 
 // Ask user for Intern info
-const askIntern = [
+function askIntern() {
+    inquirer.prompt([
     {
         type: "input",
-        name: "school",
+        name: "internSchool",
         message: "What is the name of this Intern's school?",
-        validate: schoolInput => {
-            if (schoolInput) {
+        validate: answer => {
+            if (answer !== '') {
                 return true;
-            } else {
-                console.log('Please enter a school name.');
-                return false; 
             }
+            return 'Please enter a school name.'; 
         }
     }
-];
+])};
 
 
 // function initTeam() {
