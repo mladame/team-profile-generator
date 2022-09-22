@@ -24,7 +24,8 @@ const confirmNewEmp = [
         }];
 
 // Ask user for employee info
-const addEmployee = [
+function addEmployee() {
+    inquirer.prompt([
     {
         type: "list",
         name: "role",
@@ -33,133 +34,104 @@ const addEmployee = [
     },
     {
         type: "input",
-        name: "name",
+        name: "employeeName",
         message: "What is the name of this employee?",
-        validate: nameInput => {
-            if (nameInput) {
+        validate: answer => {
+            if (answer !== '') {
                 return true;
-            } else {
-                console.log('Please enter the employee name');
-                return false; 
             }
+            return 'Please enter the employee name.'; 
         }
     },
     {
         type: "input",
-        name: "id",
+        name: "employeeId",
         message: "What is this employee's ID number?",
-        validate: idInput => {
-            if (idInput) {
+        validate: answer => {
+            if (answer !== '') {
                 return true;
-            } else {
-                console.log('Please enter the employee ID.');
-                return false; 
             }
+            return 'Please enter the employee ID.'; 
         }
     },
     {
         type: "input",
-        name: "email",
+        name: "employeeEmail",
         message: "What is this employee's email?",
-        validate: emailInput => {
-            if (emailInput) {
+        validate: answer => {
+            if (answer !== '') {
                 return true;
-            } else {
-                console.log('Please enter an email address.');
-                return false; 
             }
+            return 'Please enter an email address.'; 
         }
-    }];
+    },
+    // {
+    //     type: "input",
+    //     name: "email",
+    //     message: "What is this employee's email?",
+    //     validate: emailInput => {
+    //         if (emailInput) {
+    //             return true;
+    //         } else {
+    //             console.log('Please enter an email address.');
+    //             return false; 
+    //         }
+    //     }
+    // }
+])
+}  ;
 
 // Ask user for manager info
 function app() {
+
+    // Prompt user to enter manager info
     function askManager() {
         inquirer.prompt([
             {
                 type: "input",
-                name: "managername",
+                name: "managerName",
                 message: "What is the team manager's name?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'please enter managers name'; 
+                    return 'Please enter the managers name.'; 
                 }
             },
             {
                 type: "input",
-                name: "managername",
-                message: "What is the team manager's name?",
+                name: "managerId",
+                message: "What is the manager's ID number?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'please enter managers name'; 
+                    return 'Please enter the manager ID.'; 
                 }
             },
             {
                 type: "input",
-                name: "managername",
-                message: "What is the team manager's name?",
+                name: "managerEmail",
+                message: "What is the manager's email?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'please enter managers name'; 
+                    return 'Please enter an email address.'; 
                 }
             },
             {
                 type: "input",
-                name: "managername",
-                message: "What is the team manager's name?",
+                name: "managerOfficeNumber",
+                message: "What is the manager's office number?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'please enter managers name'; 
+                    return 'Please enter the office number.'; 
                 }
             },
         ])
-    
-        // {
-        //     type: "input",
-        //     name: "id",
-        //     message: "What is the manager's ID number?",
-        //     validate: idInput => {
-        //         if (idInput) {
-        //             return true;
-        //         } else {
-        //             console.log('Please enter the manager ID.');
-        //             return false; 
-        //         }
-        //     },
-        // },
-        // {
-        //     type: "input",
-        //     name: "email",
-        //     message: "What is the manager's email?",
-        //     validate: emailInput => {
-        //         if (emailInput) {
-        //             return true;
-        //         } else {
-        //             console.log('Please enter an email address.');
-        //             return false; 
-        //         }
-        //     }
-        // },
-        // {
-        //     type: "input",
-        //     name: "officeNumber",
-        //     message: "What is the manager's office number?",
-        //     validate: onInput => {
-        //         if (onInput) {
-        //             return true;
-        //         } else {
-        //             console.log('Please enter the office number.');
-        //             return false; 
-        //         }
-        //     }
-        // }
         .then((answers) => {
             const manager = new Manager(
                 answers.managerName, 
@@ -293,3 +265,44 @@ const askIntern = [
 // .catch(err => {
 //     console.log(err);
 // });
+
+// ask manager questions
+// {
+        //     type: "input",
+        //     name: "id",
+        //     message: "What is the manager's ID number?",
+        //     validate: idInput => {
+        //         if (idInput) {
+        //             return true;
+        //         } else {
+        //             console.log('Please enter the manager ID.');
+        //             return false; 
+        //         }
+        //     },
+        // },
+        // {
+        //     type: "input",
+        //     name: "email",
+        //     message: "What is the manager's email?",
+        //     validate: emailInput => {
+        //         if (emailInput) {
+        //             return true;
+        //         } else {
+        //             console.log('Please enter an email address.');
+        //             return false; 
+        //         }
+        //     }
+        // },
+        // {
+        //     type: "input",
+        //     name: "officeNumber",
+        //     message: "What is the manager's office number?",
+        //     validate: onInput => {
+        //         if (onInput) {
+        //             return true;
+        //         } else {
+        //             console.log('Please enter the office number.');
+        //             return false; 
+        //         }
+        //     }
+        // }
