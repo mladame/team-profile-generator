@@ -196,6 +196,7 @@ function app() {
                 if(true){
                     buildTeam()
                 } else {}
+                generateHTML(teamMembersInfo)
                     // writeProfile()
             })
         };
@@ -206,11 +207,13 @@ function app() {
 }
 app()
 
+// need generatehtml
+// need to write file
 
-
-// function writeProfile(){
-
-// }
+function writeProfile(teamMembersInfo){
+    fs.writeFile('./dist/team-profile.html', teamMembersInfo, err =>
+    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
+}
 
 
 
