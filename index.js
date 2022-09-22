@@ -32,94 +32,107 @@ function confirmEmp() {
     })
 };
 
-// Ask user for employee info
-function addEmployee() {
-    inquirer.prompt([
-    {
-        type: "list",
-        name: "role",
-        message: "What type of employee would you like to add?",
-        choices: ['Engineer', 'Intern']
-    },
-    {
-        type: "input",
-        name: "employeeName",
-        message: "What is the name of this employee?",
-        validate: answer => {
-            if (answer !== '') {
-                return true;
-            }
-            return 'Please enter the employee name.'; 
-        }
-    },
-    {
-        type: "input",
-        name: "employeeId",
-        message: "What is this employee's ID number?",
-        validate: answer => {
-            if (answer !== '') {
-                return true;
-            }
-            return 'Please enter the employee ID.'; 
-        }
-    },
-    {
-        type: "input",
-        name: "employeeEmail",
-        message: "What is this employee's email?",
-        validate: answer => {
-            if (answer !== '') {
-                return true;
-            }
-            return 'Please enter an email address.'; 
-        }
-    },
-    ])
-    .then((answers) => {
-        const employee = new Employee(
-            answers.employeeName, 
-            answers.employeeId,
-            answers.employeeEmail,
-            answers.employeeOfficeNumber
-        );
-        teamMembers.push(employee);
-        idArray.push(answers.employeeId);
-        // 
-    })
-};
+
 
 // Ask user for manager info
 function app() {
 
-    // Prompt user to enter manager info
-    function askManager() {
-        inquirer.prompt([
+    // Prompt user to enter manager info -- calls buildTeam()
+        function askManager() {
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "managerName",
+                    message: "What is the team manager's name?",
+                    validate: answer => {
+                        if (answer !== '') {
+                            return true;
+                        }
+                        return 'Please enter the managers name.'; 
+                    }
+                },
+                {
+                    type: "input",
+                    name: "managerId",
+                    message: "What is the manager's ID number?",
+                    validate: answer => {
+                        if (answer !== '') {
+                            return true;
+                        }
+                        return 'Please enter the manager ID.'; 
+                    }
+                },
+                {
+                    type: "input",
+                    name: "managerEmail",
+                    message: "What is the manager's email?",
+                    validate: answer => {
+                        if (answer !== '') {
+                            return true;
+                        }
+                        return 'Please enter an email address.'; 
+                    }
+                },
+                {
+                    type: "input",
+                    name: "managerOfficeNumber",
+                    message: "What is the manager's office number?",
+                    validate: answer => {
+                        if (answer !== '') {
+                            return true;
+                        }
+                        return 'Please enter the office number.'; 
+                    }
+                },
+            ])
+            .then((answers) => {
+                const manager = new Manager(
+                    answers.managerName, 
+                    answers.managerId,
+                    answers.managerEmail,
+                    answers.managerOfficeNumber
+                );
+                teamMembers.push(manager);
+                idArray.push(answers.managerId);
+                buildTeam()
+            })
+        }
+
+    // build team, get employee info -- calls askEngineer() or askIntern() based on selection
+        function buildTeam() {
+            inquirer.prompt([
+            {
+                type: "list",
+                name: "employeeRole",
+                message: "What type of employee would you like to add?",
+                choices: ['Engineer', 'Intern']
+            },
             {
                 type: "input",
-                name: "managerName",
-                message: "What is the team manager's name?",
+                name: "employeeName",
+                message: "What is the name of this employee?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'Please enter the managers name.'; 
+                    return 'Please enter the employee name.'; 
                 }
             },
             {
                 type: "input",
-                name: "managerId",
-                message: "What is the manager's ID number?",
+                name: "employeeId",
+                message: "What is this employee's ID number?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'Please enter the manager ID.'; 
+                    return 'Please enter the employee ID.'; 
                 }
             },
             {
                 type: "input",
-                name: "managerEmail",
-                message: "What is the manager's email?",
+                name: "employeeEmail",
+                message: "What is this employee's email?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
@@ -127,83 +140,76 @@ function app() {
                     return 'Please enter an email address.'; 
                 }
             },
+            ])
+            .then((answers) => {
+                const employee = new Employee(
+                    answers.employeeName, 
+                    answers.employeeId,
+                    answers.employeeEmail,
+                    answers.employeeOfficeNumber
+                );
+                teamMembers.push(employee);
+                idArray.push(answers.employeeId);
+                if(answers.employeeRole == "Engineer") {
+                    askEngineer()
+                } else {askIntern()}
+            })
+        };
+        
+    // Get engineer info - calls confirmEmp()
+        function askEngineer() {
+            inquirer.prompt([
             {
                 type: "input",
-                name: "managerOfficeNumber",
-                message: "What is the manager's office number?",
+                name: "engineerGithub",
+                message: "What is this Engineer's Github username?",
                 validate: answer => {
                     if (answer !== '') {
                         return true;
                     }
-                    return 'Please enter the office number.'; 
+                    return 'Please enter a Github username.'; 
                 }
-            },
-        ])
-        .then((answers) => {
-            const manager = new Manager(
-                answers.managerName, 
-                answers.managerId,
-                answers.managerEmail,
-                answers.managerOfficeNumber
-            );
-            teamMembers.push(manager);
-            idArray.push(answers.managerId);
-            // buildTeam()
-        })
-    }
+            }
+            ])
+            .then((answers) => {
+                const engineer = new Engineer (answers.engineerGithub);
+                teamMembers.push(engineer);
+                idArray.push(answers.employeeId);
+                // confirmEmp()
+            })
+        };
 
+    // Get intern info - calls confirmEmp()
+        function askIntern() {
+            inquirer.prompt([
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What is the name of this Intern's school?",
+                validate: answer => {
+                    if (answer !== '') {
+                        return true;
+                    }
+                    return 'Please enter a school name.'; 
+                }
+            }
+            ])
+            .then((answers) => {
+                const intern = new Intern (answers.internSchool);
+                teamMembers.push(intern);
+                idArray.push(answers.employeeId);
+                confirmEmp()
+            })
+        };
 
-    // build team
     askManager()
 }
 app()
 
 
-// Ask user for Engineer info
-function askEngineer() {
-    inquirer.prompt([
-    {
-        type: "input",
-        name: "engineerGithub",
-        message: "What is this Engineer's Github username?",
-        validate: answer => {
-            if (answer !== '') {
-                return true;
-            }
-            return 'Please enter a Github username.'; 
-        }
-    }
-    ])
-    .then((answers) => {
-        const engineer = new Engineer (answers.engineerGithub);
-        teamMembers.push(engineer);
-        idArray.push(answers.employeeId);
-        // confirmEmp()
-    })
-};
 
-// Ask user for Intern info
-function askIntern() {
-    inquirer.prompt([
-    {
-        type: "input",
-        name: "internSchool",
-        message: "What is the name of this Intern's school?",
-        validate: answer => {
-            if (answer !== '') {
-                return true;
-            }
-            return 'Please enter a school name.'; 
-        }
-    }
-    ])
-    .then((answers) => {
-        const intern = new Intern (answers.internSchool);
-        teamMembers.push(intern);
-        idArray.push(answers.employeeId);
-        // confirmEmp()
-    })
-};
+
+
 
 
 // function initTeam() {
