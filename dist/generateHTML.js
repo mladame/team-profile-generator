@@ -2,12 +2,11 @@ const Intern = require("../lib/Intern");
 const Manager = require("../lib/Manager");
 const Engineer = require("../lib/Engineer");
 
-function renderManagerCard(){
+// function renderManagerCard(){
 
-    const manager = new Manager 
-    // fix template literalscl
-    for (const member of teamMemberInfo) {
-        if (member.role === "Manager"){
+    const createManager = manager => {
+        // for (const member of teamMemberInfo) {
+        // if (member.role === "Manager"){
             return `
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -24,14 +23,16 @@ function renderManagerCard(){
         
             `
         }
-    }
-}
+    //     }
+    // }
+    
+// }
 
 //todo: function that generates engineer card
 // function renderEngineerCard(){
     
 
-    // EXAMPLE - NEW FUNCTION
+    // reformat
     const createEngineer = engineer => {
         return `<div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
@@ -49,33 +50,31 @@ function renderManagerCard(){
         
     // }
 // fix template literals
-    for (const member of teamMemberInfo) {
-        if (member.role === "Engineer"){
-            return `<div class="card border-dark mb-3" style="max-width: 18rem;">
-            <div class="card-header my-2">
-                <h2>${engineer.getName()}</h2>
-                <h3>Engineer <i class="fa-solid fa-gear"></i></h3>
-            </div>
-            <div class="card-body text-dark">
-                <h5 class="card-title my-3">ID: ${engineer.getId()}</h5>
-                <h5 class="card-title my-3"><a href="mailto:${engineer.getEmail()}">Send Email</a></h5>
-                <h5 class="card-title my-3"><a href="https://github.com/${engineer.getGithub()}">Github</a></h5>
-        </div>
-        </div>
+    // for (const member of teamMemberInfo) {
+    //     if (member.role === "Engineer"){
+    //         return `<div class="card border-dark mb-3" style="max-width: 18rem;">
+    //         <div class="card-header my-2">
+    //             <h2>${engineer.getName()}</h2>
+    //             <h3>Engineer <i class="fa-solid fa-gear"></i></h3>
+    //         </div>
+    //         <div class="card-body text-dark">
+    //             <h5 class="card-title my-3">ID: ${engineer.getId()}</h5>
+    //             <h5 class="card-title my-3"><a href="mailto:${engineer.getEmail()}">Send Email</a></h5>
+    //             <h5 class="card-title my-3"><a href="https://github.com/${engineer.getGithub()}">Github</a></h5>
+    //     </div>
+    //     </div>
 
-            `
-        }
-    }
+    //         `
+    //     }
+    // }
 }
 
 
 //todo: function that generates intern card
-function renderInternCard(){
+// function renderInternCard(){
 
-    const intern = new Intern;
-    // // fix template literals
-    for (const member of teamMemberInfo) {
-        if (member.role === "Intern"){
+    const createIntern = intern => {
+
             return `
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -92,8 +91,10 @@ function renderInternCard(){
         
             `
         }
-    }
-}
+
+    // // fix template literals
+
+// }
 
 
 function generateHTML(){
@@ -122,12 +123,12 @@ function generateHTML(){
         <div class="team-cards-container row my-5">
     
         <!-- Manager -->
-        ${renderManagerCard()}
+        ${createManager}
         <!-- Employees -->
         <!-- engineer -->
         ${createEngineer}
         <!-- intern -->
-        ${renderInternCard()}
+        ${createIntern}
     
         </div>
     
