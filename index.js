@@ -24,6 +24,12 @@ function confirmEmp() {
             message: "Would you like to add a new Employee?"
         }
     ])
+    .then((answers) => {
+        if(true){
+            buildTeam();
+        }
+        generateHTML(data);
+    })
 };
 
 // Ask user for employee info
@@ -68,21 +74,19 @@ function addEmployee() {
             return 'Please enter an email address.'; 
         }
     },
-    // {
-    //     type: "input",
-    //     name: "email",
-    //     message: "What is this employee's email?",
-    //     validate: emailInput => {
-    //         if (emailInput) {
-    //             return true;
-    //         } else {
-    //             console.log('Please enter an email address.');
-    //             return false; 
-    //         }
-    //     }
-    // }
-])
-}  ;
+    ])
+    .then((answers) => {
+        const employee = new Employee(
+            answers.employeeName, 
+            answers.employeeId,
+            answers.employeeEmail,
+            answers.employeeOfficeNumber
+        );
+        teamMembers.push(employee);
+        idArray.push(answers.employeeId);
+        // 
+    })
+};
 
 // Ask user for manager info
 function app() {
@@ -144,7 +148,7 @@ function app() {
             );
             teamMembers.push(manager);
             idArray.push(answers.managerId);
-            // createTeam()
+            // buildTeam()
         })
     }
 
@@ -169,7 +173,14 @@ function askEngineer() {
             return 'Please enter a Github username.'; 
         }
     }
-])};
+    ])
+    .then((answers) => {
+        const engineer = new Engineer (answers.engineerGithub);
+        teamMembers.push(engineer);
+        idArray.push(answers.employeeId);
+        // confirmEmp()
+    })
+};
 
 // Ask user for Intern info
 function askIntern() {
@@ -185,7 +196,14 @@ function askIntern() {
             return 'Please enter a school name.'; 
         }
     }
-])};
+    ])
+    .then((answers) => {
+        const intern = new Intern (answers.internSchool);
+        teamMembers.push(intern);
+        idArray.push(answers.employeeId);
+        // confirmEmp()
+    })
+};
 
 
 // function initTeam() {
