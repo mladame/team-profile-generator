@@ -5,6 +5,7 @@ const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const path = require("path");
+const { run } = require("jest");
 const inquirer = require("inquirer");
 const dist_DIR = path.resolve(__dirname, "dist");
 const distPath = path.join(dist_DIR, "team-profile.html");
@@ -193,28 +194,45 @@ function app() {
                 }
             ])
             .then((answers) => {
+                
+                // true ? buildTeam() : generateHTML(teamMembersInfo);
                 if(true){
                     buildTeam()
-                } else {}
-                generateHTML(teamMembersInfo)
-                    // writeProfile()
+                }
+                // writeProfile(teamProfiles)
+                
+                
+                // generateHTML(teamMembersInfo)
+                    
             })
+            .then((answers) => {
+            const finishHTML = generateHTML(teamMembers)
+            writeProfile(finishHTML);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         };
 
-
+        
 
     askManager()
 }
+
+function writeProfile(data){
+        fs.writeFile(distPath, data, (err) =>
+        err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
+        }
+
+
 app()
 
-// need generatehtml
-// need to write file
+module.exports = teamMembersInfo;
 
-function writeProfile(teamMembersInfo){
-    fs.writeFile('./dist/team-profile.html', teamMembersInfo, err =>
-    err ? console.log(err) : console.log('Team Profile successfully generated! Check dist folder for html and css files.'))
-}
 
+// .then((data) => {
+//     writeProfile()
+// })
 
 
 // function initTeam() {

@@ -1,8 +1,7 @@
-const Intern = require("../lib/Intern");
-const Manager = require("../lib/Manager");
-const Engineer = require("../lib/Engineer");
-
 // function renderManagerCard(){
+
+const teamMembersInfo = require("..")
+const Employee = require("../lib/Employee")
 
     const createManager = manager => {
         // for (const member of teamMemberInfo) {
@@ -11,13 +10,13 @@ const Engineer = require("../lib/Engineer");
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${Manager.getName()}</h2>
+                <h2>${manager.getName}</h2>
                 <h3>Manager <i class="fa-solid fa-mug-saucer"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">${Manager.getId()}</h5>
-                <h5 class="link card-title my-3"><a href="mailto:${Manager.getEmail()}">Send Email</a></h5>
-                <h5 class="card-title my-3">${Manager.getOfficeNumber()}</h5>
+                <h5 class="card-title my-3">${manager.getId}</h5>
+                <h5 class="link card-title my-3"><a href="mailto:${manager.getEmail}">Send Email</a></h5>
+                <h5 class="card-title my-3">${manager.getOfficeNumber}</h5>
             </div>
         </div>
         
@@ -36,17 +35,18 @@ const Engineer = require("../lib/Engineer");
     const createEngineer = engineer => {
         return `<div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${Engineer.getName()}</h2>
+                <h2>${engineer.getName}</h2>
                 <h3>Engineer <i class="fa-solid fa-gear"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">ID: ${Engineer.getId()}</h5>
-                <h5 class="card-title my-3"><a href="mailto:${Engineer.getEmail()}">Send Email</a></h5>
-                <h5 class="card-title my-3"><a href="https://github.com/${Engineer.getGithub()}">Github</a></h5>
+                <h5 class="card-title my-3">ID: ${engineer.getId}</h5>
+                <h5 class="card-title my-3"><a href="mailto:${engineer.getEmail}">Send Email</a></h5>
+                <h5 class="card-title my-3"><a href="https://github.com/${engineer.getGithub}">Github</a></h5>
         </div>
         </div>
 
             `
+}
         
     // }
 // fix template literals
@@ -67,7 +67,6 @@ const Engineer = require("../lib/Engineer");
     //         `
     //     }
     // }
-}
 
 
 //todo: function that generates intern card
@@ -79,27 +78,32 @@ const Engineer = require("../lib/Engineer");
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
             <div class="card-header my-2">
-                <h2>${Intern.getName()}</h2>
+                <h2>${intern.getName}</h2>
                 <h3>Intern <i class="fa-solid fa-graduation-cap"></i></h3>
             </div>
             <div class="card-body text-dark">
-                <h5 class="card-title my-3">ID: ${Intern.getId()}</h5>
-                <h5 class="card-title my-3"><a href="mailto:${Intern.getEmail()}">Send Email</a></h5>
-                <h5 class="card-title my-3">Education: ${Intern.getSchool()}</h5>
+                <h5 class="card-title my-3">ID: ${intern.getId}</h5>
+                <h5 class="card-title my-3"><a href="mailto:${intern.getEmail}">Send Email</a></h5>
+                <h5 class="card-title my-3">Education: ${intern.getSchool}</h5>
             </div>
         </div>
         
             `
         }
 
-    // // fix template literals
 
-// }
+// TODO: get data
+const getTeam = [];
+
+    //push team member info that returns "Manager" from getRole(), creates manager card with corresponding data
+    getTeam.push(teamMembersInfo
+        .filter(Employee => Employee.getRole() === "Manager")
+        .map(manager => createManager(manager))
+        );
 
 
 function generateHTML(){
     return `
-    
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -123,12 +127,12 @@ function generateHTML(){
         <div class="team-cards-container row my-5">
     
         <!-- Manager -->
-        ${createManager}
+        ${createManager()}
         <!-- Employees -->
         <!-- engineer -->
-        ${createEngineer}
+        ${createEngineer()}
         <!-- intern -->
-        ${createIntern}
+        ${createIntern()}
     
         </div>
     
