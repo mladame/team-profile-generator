@@ -87,7 +87,7 @@ function addEngineer() {
     inquirer.prompt([
     {
         type: "input",
-        name: "employeeName",
+        name: "name",
         message: "What is the name of this employee?",
         validate: answer => {
             if (answer !== '') {
@@ -98,7 +98,7 @@ function addEngineer() {
     },
     {
         type: "input",
-        name: "employeeId",
+        name: "id",
         message: "What is this employee's ID number?",
         validate: answer => {
             if (answer !== '') {
@@ -109,7 +109,7 @@ function addEngineer() {
     },
     {
         type: "input",
-        name: "employeeEmail",
+        name: "email",
         message: "What is this employee's email?",
         validate: answer => {
             if (answer !== '') {
@@ -120,7 +120,7 @@ function addEngineer() {
     },
     {
         type: "input",
-        name: "engineerGithub",
+        name: "github",
         message: "What is this Engineer's Github username?",
     },
     {
@@ -132,10 +132,10 @@ function addEngineer() {
     ])
     .then((answers) => {
         const engineer = new Engineer(
-            answers.employeeName, 
-            answers.employeeId,
-            answers.employeeEmail,
-            answers.engineerGithub
+            answers.name, 
+            answers.id,
+            answers.email,
+            answers.github
         );
 
         teamMembers.push(engineer);
@@ -155,7 +155,7 @@ function addIntern() {
     inquirer.prompt([
     {
         type: "input",
-        name: "employeeName",
+        name: "name",
         message: "What is the name of this employee?",
         validate: answer => {
             if (answer !== '') {
@@ -166,7 +166,7 @@ function addIntern() {
     },
     {
         type: "input",
-        name: "employeeId",
+        name: "id",
         message: "What is this employee's ID number?",
         validate: answer => {
             if (answer !== '') {
@@ -177,7 +177,7 @@ function addIntern() {
     },
     {
         type: "input",
-        name: "employeeEmail",
+        name: "email",
         message: "What is this employee's email?",
         validate: answer => {
             if (answer !== '') {
@@ -188,7 +188,7 @@ function addIntern() {
     },
     {
         type: "input",
-        name: "internSchool",
+        name: "school",
         message: "What is the name of this Intern's school?",
     },
     {
@@ -200,10 +200,10 @@ function addIntern() {
     ])
     .then((answers) => {
         const intern = new Intern(
-            answers.employeeName, 
-            answers.employeeId,
-            answers.employeeEmail,
-            answers.internSchool
+            answers.name, 
+            answers.id,
+            answers.email,
+            answers.school
         );
 
         teamMembers.push(intern);
