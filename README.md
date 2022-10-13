@@ -18,7 +18,15 @@ The Team Profile Generator, designed to put together a simple profile including 
 
 ## Installation
 
-To install, clone the code to a repository on your computer. Once copied, install all dependencies by simply entering in "". Once all dependencies are installed, enter "" to run the program and answer the questions as instructed. A new html file will appear with the corresponding css file. This is your new Team Profile!
+To install, clone the code to a repository on your computer. Once copied, install all dependencies by simply entering: 
+```
+npm i 
+```
+ Once all dependencies are installed, enter: 
+ ```
+ node index
+ ```
+  The program will then begin, then answer the questions as instructed. A new html file will appear with the corresponding css file. This is your new Team Profile!
 
 ## Licenses
 
@@ -36,5 +44,7 @@ Email: mladame43@gmail.com
 [Visit my Github Profile](https://github.com/mladame)
 
 ## Demo
+
+[Full Video Demo of the Team Profile Generator](https://drive.google.com/file/d/1OBdIfyuhwsg4tFs-KFmTf4mJUVUY_jBw/view?usp=sharing)
 
 ![](./assets/images/Team-Profile.gif)
