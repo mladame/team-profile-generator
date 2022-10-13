@@ -36,6 +36,5 @@ Email: mladame43@gmail.com
 [Visit my Github Profile](https://github.com/mladame)
 
 ## Demo
-<img
-src="./assets/images/"
-alt="Screenshot of the Daily Weather Report">
+
+![](./assets/images/Team-Profile.gif)
